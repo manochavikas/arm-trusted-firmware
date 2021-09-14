@@ -325,11 +325,9 @@
 
 &sdmmc1 {
 	pinctrl-names = "default";
-	pinctrl-0 = <&sdmmc1_b4_pins_a &sdmmc1_dir_pins_a>;
+	pinctrl-0 = <&sdmmc1_b4_pins_a>;
 	disable-wp;
-	st,sig-dir;
 	st,neg-edge;
-	st,use-ckin;
 	bus-width = <4>;
 	vmmc-supply = <&vdd_sd>;
 	sd-uhs-sdr12;
@@ -350,7 +348,6 @@
 	vmmc-supply = <&v3v3>;
 	vqmmc-supply = <&vdd>;
 	mmc-ddr-3_3v;
-	status = "okay";
 };
 
 &timers15 {
