@@ -282,17 +282,21 @@ static int stm32mp1_ddr_setup(void)
 	/* Disable axidcg clock gating during init */
 	mmio_clrbits_32(priv->rcc + RCC_DDRITFCR, RCC_DDRITFCR_AXIDCGEN);
 
+	NOTICE("VM: before stm32mp1_ddr_init\n");
 	stm32mp1_ddr_init(priv, &config);
+	NOTICE("VM: after stm32mp1_ddr_init\n");
 
 	/* Enable axidcg clock gating */
 	mmio_setbits_32(priv->rcc + RCC_DDRITFCR, RCC_DDRITFCR_AXIDCGEN);
 
 	priv->info.size = config.info.size;
 
-	VERBOSE("%s : ram size(%x, %x)\n", __func__,
+	INFO("%s : ram size(%x, %x)\n", __func__,
 		(uint32_t)priv->info.base, (uint32_t)priv->info.size);
 
 	if (stm32mp_map_ddr_non_cacheable() != 0) {
+		
+	NOTICE("VM: stm32mp_map_ddr_non_cacheable failed \n");
 		panic();
 	}
 
@@ -365,5 +369,6 @@ int stm32mp1_ddr_probe(void)
 	priv->info.base = STM32MP_DDR_BASE;
 	priv->info.size = 0;
 
+	NOTICE("VM: stm32mp1_ddr_setup\n");
 	return stm32mp1_ddr_setup();
 }

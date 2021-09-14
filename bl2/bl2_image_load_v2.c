@@ -49,6 +49,7 @@ struct entry_point_info *bl2_load_images(void)
 		 */
 		if ((bl2_node_info->image_info->h.attr &
 		    IMAGE_ATTRIB_PLAT_SETUP) != 0U) {
+			NOTICE("VM: DEBUG 7\n");
 			if (plat_setup_done != 0) {
 				WARN("BL2: Platform setup already done!!\n");
 			} else {
@@ -58,6 +59,7 @@ struct entry_point_info *bl2_load_images(void)
 			}
 		}
 
+		NOTICE("VM: DEBUG 1\n");
 		err = bl2_plat_handle_pre_image_load(bl2_node_info->image_id);
 		if (err != 0) {
 			ERROR("BL2: Failure in pre image load handling (%i)\n", err);

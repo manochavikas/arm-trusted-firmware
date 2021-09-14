@@ -133,7 +133,7 @@ static void sp_min_prepare_next_image_entry(void)
 	assert(next_image_info);
 	assert(NON_SECURE == GET_SECURITY_STATE(next_image_info->h.attr));
 
-	INFO("SP_MIN: Preparing exit to normal world\n");
+	NOTICE("SP_MIN: Preparing exit to normal world\n");
 
 	psci_prepare_next_non_secure_ctx(next_image_info);
 	smc_set_next_ctx(NON_SECURE);
@@ -195,8 +195,10 @@ void sp_min_main(void)
 	 * from SP_MIN.
 	 */
 	sp_min_plat_runtime_setup();
+	NOTICE("VM: SP_Min:sp_min_plat_runtime_setup\n");
 
 	console_flush();
+	NOTICE("VM: SP_Min: after console_flush\n");
 }
 
 /******************************************************************************
