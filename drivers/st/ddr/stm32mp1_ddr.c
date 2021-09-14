@@ -912,7 +912,26 @@ void stm32mp1_ddr_init(struct ddr_info *priv,
 	if (config->p_cal_present) {
 		set_reg(priv, REGPHY_CAL, &config->p_cal);
 	}
+#if 0
+	{
+		unsigned int value;
+		uintptr_t ptr;
 
+		value = 0x40000000;
+		ptr = (uintptr_t)0x5A0041CC;
+		mmio_write_32(ptr, value);
+
+		ptr = (uintptr_t)0x5A00420C;
+		mmio_write_32(ptr, value);
+
+		value = 0x0;
+		ptr = (uintptr_t)0x5A0041D0;
+		mmio_write_32(ptr, value);
+
+		ptr = (uintptr_t)0x5A004210;
+		mmio_write_32(ptr, value);
+	}
+#endif
 	/* DDR3 = don't set DLLOFF for init mode */
 	if ((config->c_reg.mstr &
 	     (DDRCTRL_MSTR_DDR3 | DDRCTRL_MSTR_DLL_OFF_MODE))
@@ -992,11 +1011,11 @@ void stm32mp1_ddr_init(struct ddr_info *priv,
 	}
 
 	if (config->p_cal_present) {
-		VERBOSE("DDR DQS training skipped.\n");
+		NOTICE("DDR DQS training skipped.\n");
 	} else {
 		uint64_t time;
 
-		VERBOSE("DDR DQS training.\n");
+		NOTICE("DDR DQS training.\n");
 
 		time = timeout_init_us(0);
 
